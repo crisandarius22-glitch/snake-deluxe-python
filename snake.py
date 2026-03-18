@@ -2,25 +2,8 @@ import random
 import pygame
 import os
 import sys
-from pygame.mixer import Sound
 
 pygame.init()
-
-# Sunete
-try:
-    eat_sound = Sound("eat.wav")
-except:
-    eat_sound = None
-
-try:
-    gameover_sound = Sound("gameover.wav")
-except:
-    gameover_sound = None
-
-try:
-    record_sound = Sound("newrecord.wav")
-except:
-    record_sound = None
 
 # Culori
 CULORI = {
@@ -39,13 +22,13 @@ latime, inaltime = ecran.get_size()
 latime = (latime // bloc) * bloc
 inaltime = (inaltime // bloc) * bloc
 ecran = pygame.display.set_mode((latime, inaltime), pygame.FULLSCREEN)
-pygame.display.set_caption("🐍 Snake Deluxe")
+pygame.display.set_caption("Snake Deluxe")
 
 # Fonturi
 font_text = pygame.font.SysFont("consolas", 20)
 font_mare = pygame.font.SysFont("consolas", 40)
 
-# Funcții highscore
+# Highscore
 def citeste_highscore():
     if os.path.exists("highscore.txt"):
         with open("highscore.txt", "r") as f:
@@ -89,7 +72,6 @@ def mesaj(text, culoare, sus=True):
     y_pos = inaltime / 3 if sus else inaltime / 2
     ecran.blit(message, [latime / 6, y_pos])
 
-# Joc principal
 def joc(viteza_initiala=10):
     game_over = False
     game_close = False
@@ -119,8 +101,6 @@ def joc(viteza_initiala=10):
 
     while not game_over:
         while game_close:
-            if gameover_sound:
-                gameover_sound.play()
             ecran.fill(CULORI["fundal"])
             mesaj("Ai pierdut! C - Continua | Q - Iesi", CULORI["game_over"], sus=False)
             scorul(lungime - 1, scor_maxim)
@@ -147,15 +127,14 @@ def joc(viteza_initiala=10):
                     x_schimbare = bloc
                     y_schimbare = 0
                 elif event.key == pygame.K_UP and y_schimbare == 0:
+                    x_schimbare = 0
                     y_schimbare = -bloc
-                    x_schimbare = 0
                 elif event.key == pygame.K_DOWN and y_schimbare == 0:
-                    y_schimbare = bloc
                     x_schimbare = 0
+                    y_schimbare = bloc
 
         cap_nou = [x + x_schimbare, y + y_schimbare]
 
-        # Coliziuni
         if cap_nou[0] >= latime or cap_nou[0] < 0 or cap_nou[1] >= inaltime or cap_nou[1] < 0:
             game_close = True
 
@@ -169,6 +148,7 @@ def joc(viteza_initiala=10):
         x, y = cap_nou
         cap = [x, y]
         snake.append(cap)
+
         if len(snake) > lungime:
             del snake[0]
 
@@ -177,7 +157,6 @@ def joc(viteza_initiala=10):
         draw_obstacole()
         draw_snake(bloc, snake)
 
-        # Animație "+1"
         if afiseaza_plus:
             elapsed = pygame.time.get_ticks() - plus_timer
             if elapsed < 500:
@@ -189,7 +168,6 @@ def joc(viteza_initiala=10):
         scorul(lungime - 1, scor_maxim)
         pygame.display.update()
 
-        # Coliziune cu fruct
         snake_rect = pygame.Rect(x, y, bloc, bloc)
         fruct_rect = pygame.Rect(fruct_x, fruct_y, bloc, bloc)
 
@@ -202,14 +180,9 @@ def joc(viteza_initiala=10):
             afiseaza_plus = True
             plus_timer = pygame.time.get_ticks()
 
-            if eat_sound:
-                eat_sound.play()
-
             if lungime - 1 > scor_maxim:
                 scor_maxim = lungime - 1
                 salveaza_highscore(scor_maxim)
-                if record_sound:
-                    record_sound.play()
 
             if lungime % 5 == 0:
                 viteza += 2
@@ -219,5 +192,4 @@ def joc(viteza_initiala=10):
     pygame.quit()
     sys.exit()
 
-# Rulează jocul
 joc()
