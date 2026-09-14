@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071827">
+<title>EDOMARC | Transport Auto Europa</title>
+<meta name="description" content="Transport auto internațional România - Germania - Belgia - Olanda - Franța - Luxemburg. Calculează ruta și primește o estimare orientativă.">
+<link rel="icon" href="https://raw.githubusercontent.com/crisandarius22-glitch/snake-deluxe-python/edomarc-site-assets/edomarc-assets/logo.webp">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="https://raw.githubusercontent.com/crisandarius22-glitch/snake-deluxe-python/edomarc-site-assets/edomarc-assets/logo.webp" alt="EDOMARC"><span>EDOMARC<small>TRANSPORT & DIGITAL</small></span></a>
+    <nav><a href="#calculator" data-t="calcNav">Calculator</a><a href="#mapSection" data-t="routeNav">Rute</a><a href="#contact" data-t="contactNav">Contact</a></nav>
+    <div class="langs"><button data-lang="ro" class="active">RO</button><button data-lang="de">DE</button><button data-lang="en">EN</button></div>
+    <a class="callTop" data-phone href="tel:+40756750891">0756 750 891</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="heroShade"></div>
+  <div class="wrap heroGrid">
+    <div class="heroCopy">
+      <div class="badge" data-t="since">COMPANIE DIN 2007</div>
+      <h1 data-t="heroTitle">Transport auto simplu și direct.</h1>
+      <p data-t="heroLead">România ↔ Germania, Belgia, Olanda, Franța și Luxemburg. Vezi ruta, kilometrii și o estimare orientativă în câteva secunde.</p>
+      <div class="heroActions"><a href="#calculator" class="btn primary" data-t="estimateBtn">Calculează prețul</a><a data-wa class="btn glass" target="_blank" href="https://wa.me/40756750891">WhatsApp</a></div>
+      <div class="trustLine"><span>✓ <b data-t="realFleet">Fotografii reale</b></span><span>✓ RO · DE · EN</span><span>✓ <b data-t="direct">Contact direct</b></span></div>
+    </div>
+
+    <section class="calcCard" id="calculator">
+      <div class="calcHead"><div><small data-t="estLabel">ESTIMARE EDOMARC</small><h2 data-t="calcTitle">Calculează transportul</h2></div><span class="liveDot"></span></div>
+      <form id="priceForm">
+        <div class="clientField"><span class="clientLabel" data-t="clientType">Tip client</span><div class="clientToggle"><label><input type="radio" name="clientType" value="private" checked><span data-t="privateClient">Persoană fizică</span></label><label><input type="radio" name="clientType" value="business"><span data-t="businessClient">Persoană juridică</span></label></div></div>
+        <label><span data-t="pickup">Încărcare</span><input name="from" placeholder="ex. Stuttgart, Germania" required></label>
+        <label><span data-t="delivery">Descărcare</span><input name="to" placeholder="ex. Arad, România" required></label>
+        <div class="two">
+          <label><span data-t="vehicle">Vehicul</span><select name="vehicle"><option value="car" data-t="car">Autoturism</option><option value="suv" data-t="suv">SUV / crossover</option><option value="big" data-t="big">SUV mare / pickup</option><option value="van" data-t="van">Dubă / van</option><option value="commercial" data-t="commercial">Utilitară mare</option></select></label>
+          <label class="check"><input type="checkbox" name="nonrunning"><span data-t="nonrunning">Nerulabil</span></label>
+        </div>
+        <button class="btn dark full" type="submit" data-t="calculate">Calculează ruta și prețul</button>
+      </form>
+      <div id="result" class="result" aria-live="polite"></div>
+    </section>
+  </div>
+</section>
+
+<section class="quickFacts"><div class="wrap facts"><div><strong data-t="fact1">Transport auto internațional</strong><span>RO ↔ DE · BE · NL · FR · LU</span></div><div><strong data-t="fact2">Pentru persoane și companii</strong><span>Autoturisme · SUV · van</span></div><div><strong data-t="fact3">Ofertă confirmată direct</strong><span>WhatsApp / telefon</span></div></div></section>
+
+<section class="mapBlock" id="mapSection">
+  <div class="wrap mapGrid">
+    <div class="mapCopy">
+      <div class="eyebrow" data-t="mapEyebrow">RUTA TA</div>
+      <h2 data-t="mapTitle">Hartă satelit, nu o schiță.</h2>
+      <p data-t="mapLead">După calcul, traseul real apare aici. Dacă satelitul nu se încarcă stabil, harta trece automat pe modul rutier.</p>
+      <div class="countryPills"><span>RO</span><span>DE</span><span>BE</span><span>NL</span><span>FR</span><span>LU</span></div>
+      <div id="routeSummary" class="routeSummary"><b data-t="mapHint">Completează calculatorul de sus pentru a afișa ruta.</b></div>
+    </div>
+    <div class="mapShell"><div class="mapToggle"><button id="satBtn" class="active">Satelit</button><button id="roadBtn">Rutier</button></div><div id="map"></div></div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap proofGrid">
+    <img src="https://raw.githubusercontent.com/crisandarius22-glitch/snake-deluxe-python/edomarc-site-assets/edomarc-assets/gallery.webp" alt="Transport auto EDOMARC realizat" loading="lazy">
+    <div><div class="eyebrow" data-t="proofEyebrow">TRANSPORT REAL</div><h2 data-t="proofTitle">Fără imagini de stock în locul muncii noastre.</h2><p data-t="proofLead">Pe site folosim fotografii din transporturile EDOMARC. Oferta finală ține cont de distanță, gabaritul vehiculului, locațiile exacte și disponibilitatea cursei.</p><a data-wa class="btn primary" target="_blank" href="https://wa.me/40756750891" data-t="confirmBtn">Confirmă oferta pe WhatsApp</a></div>
+  </div>
+</section>
+
+<section class="contact" id="contact"><div class="wrap contactBox"><div><small>EDOMARC</small><h2 data-t="contactTitle">Ai o mașină de transportat?</h2><p data-t="contactLead">Trimite locațiile și modelul mașinii. Răspundem direct, fără formulare complicate.</p></div><div class="contactActions"><a data-wa class="btn whatsapp" target="_blank" href="https://wa.me/40756750891">WhatsApp</a><a data-phone class="btn white" href="tel:+40756750891">0756 750 891</a></div></div></section>
+</main>
+
+<footer><div class="wrap footerRow"><span>© <span id="year"></span> EDOMARC SRL · <b data-t="sinceShort">Din 2007</b></span><span><a href="#top">Transport</a> · <a href="mailto:contact@edomarc.ro">EDOMARC Digital</a></span></div></footer>
+
+<div class="mobileBar"><a data-wa target="_blank" href="https://wa.me/40756750891">WhatsApp</a><a data-phone href="tel:+40756750891" data-t="call">Sună</a></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
